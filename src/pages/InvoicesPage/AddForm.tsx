@@ -50,22 +50,23 @@ const AddForm = ({ isEdit = false }: Props) => {
 
   const { createInvoiceApi, isLoading: isCreateLoading } = useCreateInvoice();
   const { updateInvoiceApi, isLoading: isUpdateLoading } = useUpdateInvoice();
-  const { invoiceDetailData } = useGetInvoceDetail(id ?? "");
-
-  useEffect(() => {
-    if (invoiceDetailData) {
+  if (id) {
+    const { invoiceDetailData } = useGetInvoceDetail(id);
+    useEffect(() => {
       if (invoiceDetailData) {
-        setProducts(
-          invoiceDetailData.map((item) => ({
-            id: item.product.id,
-            name: item.product.name,
-            quantity: item.quantity,
-            price: item.product.price,
-          }))
-        );
+        if (invoiceDetailData) {
+          setProducts(
+            invoiceDetailData.map((item) => ({
+              id: item.product.id,
+              name: item.product.name,
+              quantity: item.quantity,
+              price: item.product.price,
+            }))
+          );
+        }
       }
-    }
-  }, [invoiceDetailData]);
+    }, [invoiceDetailData]);
+  }
 
   const handleOpen = (index: number) => {
     setOpen(open.map((item, idx) => (idx === index ? !item : false)));
@@ -91,14 +92,20 @@ const AddForm = ({ isEdit = false }: Props) => {
         productId: product.id,
         quantity: product.quantity,
       }));
-    if (isEdit) {
-      if (id) {
-        updateInvoiceApi({ id, productQuantity });
-      } else {
-        console.error("Invoice ID is undefined");
-      }
+    createInvoiceApi(productQuantity);
+  };
+
+  const handleEditSubmit = () => {
+    const productQuantity: CreateInvoiceDetail[] = products
+      .filter((product) => product.name != "" && product.quantity != 0)
+      .map((product) => ({
+        productId: product.id,
+        quantity: product.quantity,
+      }));
+    if (id) {
+      updateInvoiceApi({ id, productQuantity });
     } else {
-      createInvoiceApi(productQuantity);
+      console.error("Invoice ID is undefined");
     }
   };
   const calculateTotal = (product: Product) => {
@@ -106,8 +113,6 @@ const AddForm = ({ isEdit = false }: Props) => {
   };
 
   const fields = ["STT", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"];
-
-  // useEffect(() => {}, [products]);
 
   return isGetAllLoading || (isEdit && isUpdateLoading) ? (
     <h1>Loading...</h1>
@@ -124,7 +129,7 @@ const AddForm = ({ isEdit = false }: Props) => {
         <Button
           className="bg-blue-500 ml-auto"
           type="submit"
-          onClick={handleFormSubmit}
+          onClick={isEdit ? handleEditSubmit : handleFormSubmit}
           disabled={isCreateLoading || isUpdateLoading}
         >
           {isCreateLoading ? "Loading..." : "Lưu hóa đơn"}
@@ -213,11 +218,12 @@ const AddForm = ({ isEdit = false }: Props) => {
                 <Input
                   type="number"
                   value={product.quantity}
-                  onChange={(e) =>
+                  onChange={(e) => {
                     handleUpdateProduct(index, {
                       quantity: parseInt(e.target.value),
-                    })
-                  }
+                    });
+                    console.log(products);
+                  }}
                   placeholder="Số lượng"
                   className="w-20"
                 />

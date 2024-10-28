@@ -51,7 +51,7 @@ const AddForm = ({
     price: z.coerce
       .number()
       .min(0, { message: "Giá sản phẩm không được để trống" }),
-    stock: z.coerce.number().min(0).optional(),
+    stock: z.coerce.number().min(0),
     category: z.string().min(1, { message: "Danh mục không được để trống" }),
     description: z.string().optional(),
   });

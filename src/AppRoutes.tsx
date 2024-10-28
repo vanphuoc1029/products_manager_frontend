@@ -10,6 +10,7 @@ import InvoiceDetailPage from "./pages/InvoicesPage/InvoiceDetailPage";
 import { default as InvoiceAddForm } from "./pages/InvoicesPage/AddForm";
 import Testpage from "./pages/InvoicesPage/test";
 import InvoicesExportPage from "./pages/InvoicesPage/InvoicesExportPage";
+import UsersPage from "./pages/UsersPage/UsersPage";
 function App() {
   return (
     <Routes>
@@ -77,12 +78,21 @@ function App() {
         path="invoices/edit/:id"
         element={
           <SideNavLayout>
-            <InvoiceAddForm />
+            <InvoiceAddForm isEdit={true} />
           </SideNavLayout>
         }
       />
 
       <Route path="invoices/export/:id" element={<InvoicesExportPage />} />
+
+      <Route
+        path="users"
+        element={
+          <SideNavLayout>
+            <UsersPage />
+          </SideNavLayout>
+        }
+      />
 
       <Route path="test" element={<Testpage />} />
     </Routes>

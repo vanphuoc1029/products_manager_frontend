@@ -2,14 +2,14 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export type Product = {
-  id: number;
+export type Products = {
+  id: string;
   name: string;
   price: number;
   stock: number;
 };
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<Products>[] = [
   {
     accessorKey: "id",
     header: "ID",

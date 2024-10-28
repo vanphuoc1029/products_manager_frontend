@@ -78,11 +78,11 @@ export const useCreateInvoice = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Lưu hóa đơn thành công");
+      toast.success("Tạo hóa đơn thành công");
       navigate("/invoices");
     }
     if (isError) {
-      toast.error("Lưu hóa đơn thất bại");
+      toast.error("Có lỗi trong quá trình tạo hóa đơn");
     }
   }, [isSuccess, isError, navigate]);
 
@@ -124,7 +124,7 @@ export const useUpdateInvoice = () => {
     productQuantity: body,
   }: updateInvoiceProps) => {
     const response = await fetch(`${BASE_URL}/invoices/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
         "content-type": "application/json",
@@ -143,6 +143,17 @@ export const useUpdateInvoice = () => {
     isLoading,
     isSuccess,
   } = useMutation(updateInvoiceRequest);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Cập nhật hóa đơn thành công");
+      navigate("/invoices");
+    }
+    if (isError) {
+      toast.error("Có lỗi trong quá trình cập nhật hóa đơn");
+    }
+  }, [isSuccess, isError, navigate]);
 
   return { updateInvoiceApi, isError, isLoading, isSuccess };
 };

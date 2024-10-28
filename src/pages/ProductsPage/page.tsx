@@ -59,7 +59,7 @@ const ProductsPage = () => {
       ) : (
         <DataTable
           columns={columns}
-          data={productsData}
+          data={productsData || []}
           handleAdd={handleAdd}
           handleDelete={handleDelete}
         />
