@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PackageIcon from "./icons/PackedIcon";
 import LogoIcon from "./icons/LogoIcon";
 import HomeIcon from "./icons/HomeIcon";
