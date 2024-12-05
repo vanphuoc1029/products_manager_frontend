@@ -45,6 +45,9 @@ export const useLogin = () => {
 export const useGetMyUser = () => {
   const getMyUser = async () => {
     const token = localStorage.getItem("token");
+    if (!token) {
+      return null;
+    }
     const response = await fetch(`${BASE_URL}/users/getMyUser`, {
       method: "GET",
       headers: {
@@ -60,7 +63,8 @@ export const useGetMyUser = () => {
   };
 
   const { data, isLoading, isError } = useQuery("myUser", getMyUser, {
-    retry: 0,
+    retry: 1,
+    retryDelay: 1000,
   });
   return { currentUser: data, isLoading, isError };
 };

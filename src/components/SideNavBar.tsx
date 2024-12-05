@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PackageIcon from "./icons/PackedIcon";
 import LogoIcon from "./icons/LogoIcon";
 import HomeIcon from "./icons/HomeIcon";
@@ -9,9 +9,10 @@ import { LogOutIcon } from "lucide-react";
 
 const SideNavBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const onLogOutClick = async () => {
     localStorage.removeItem("token");
-    window.location.reload();
+    navigate("/login");
   };
 
   const getLinkClass = (path: string) => {
