@@ -8,7 +8,6 @@ import { default as ProductEditPage } from "./pages/ProductsPage/EditPage";
 import InvoicesPage from "./pages/InvoicesPage/InvoicesPage";
 import InvoiceDetailPage from "./pages/InvoicesPage/InvoiceDetailPage";
 import { default as InvoiceAddForm } from "./pages/InvoicesPage/AddForm";
-import Testpage from "./pages/InvoicesPage/test";
 import InvoicesExportPage from "./pages/InvoicesPage/InvoicesExportPage";
 import UsersPage from "./pages/UsersPage/UsersPage";
 function App() {
@@ -93,8 +92,6 @@ function App() {
           </SideNavLayout>
         }
       />
-
-      <Route path="test" element={<Testpage />} />
     </Routes>
   );
 }

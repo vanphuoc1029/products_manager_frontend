@@ -1,6 +1,13 @@
 import { NumericFormat } from "react-number-format";
 
-const CustomCurrencyInput = ({ field, ...props }) => {
+import { InputHTMLAttributes } from "react";
+
+interface CustomCurrencyInputProps
+  extends InputHTMLAttributes<HTMLInputElement> {
+  field: any;
+}
+
+const CustomCurrencyInput = ({ field, ...props }: CustomCurrencyInputProps) => {
   return (
     <NumericFormat
       {...field}
