@@ -29,6 +29,7 @@ import { formatCurrency } from "@/helperFunction/formating";
 import { useCreateInvoice, useUpdateInvoice } from "@/apis/InvoicesApi";
 import { useParams } from "react-router-dom";
 import { useGetInvoceDetail, CreateInvoiceDetail } from "@/apis/InvoicesApi";
+import UserValidation from "@/helperFunction/userValidation";
 
 interface Product {
   id: string;
@@ -42,6 +43,7 @@ type Props = {
 };
 
 const AddForm = ({ isEdit = false }: Props) => {
+  const isGetUserLoggedIn = UserValidation();
   const { id } = useParams<{ id: string }>();
 
   const { productsData, isLoading: isGetAllLoading } = useGetProducts();
@@ -114,7 +116,7 @@ const AddForm = ({ isEdit = false }: Props) => {
 
   const fields = ["STT", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"];
 
-  return isGetAllLoading || (isEdit && isUpdateLoading) ? (
+  return isGetAllLoading || (isEdit && isUpdateLoading) || isGetUserLoggedIn ? (
     <h1>Loading...</h1>
   ) : (
     <div style={{ width: "70vw" }} className="space-x-3">

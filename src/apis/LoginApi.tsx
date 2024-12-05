@@ -59,6 +59,8 @@ export const useGetMyUser = () => {
     return await response.json();
   };
 
-  const { data, isLoading, isError } = useQuery("myUser", getMyUser);
+  const { data, isLoading, isError } = useQuery("myUser", getMyUser, {
+    retry: 0,
+  });
   return { currentUser: data, isLoading, isError };
 };

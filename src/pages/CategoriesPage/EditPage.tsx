@@ -4,8 +4,10 @@ import ProductsHeader from "@/components/ProductsHeader";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "react-router-dom";
+import UserValidation from "@/helperFunction/userValidation";
 
 const EditPage = () => {
+  const isGetUserLoading = UserValidation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -17,7 +19,9 @@ const EditPage = () => {
       isError,
       isSuccess,
     } = useUpdateCategory(id);
-    return (
+    return isEditLoading || isGetUserLoading ? (
+      <span>Loading...</span>
+    ) : (
       <div style={{ width: "70vw" }} className="space-x-3">
         <ProductsHeader />
 

@@ -3,13 +3,17 @@ import { useGetInvoceDetail } from "@/apis/InvoicesApi";
 import { GetInvoiceDetail } from "@/apis/InvoicesApi";
 import { formatCurrency } from "@/helperFunction/formating";
 import { PrinterIcon } from "lucide-react";
+import UserValidation from "@/helperFunction/userValidation";
 
 const InvoicesExportPage = () => {
+  const isGetUserLoading = UserValidation();
   const { id } = useParams<{ id: string }>();
   if (id) {
     const { invoiceDetailData, isLoading: isGetAllLoading } =
       useGetInvoceDetail(id);
-    return (
+    return isGetUserLoading ? (
+      <span>Loading...</span>
+    ) : (
       !isGetAllLoading && (
         <div className=" w-screen">
           <div className="flex flex-row items-center justify-center">

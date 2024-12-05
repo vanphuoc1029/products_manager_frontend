@@ -8,8 +8,10 @@ import {
 } from "@/apis/ProductsApi";
 import { useState } from "react";
 import AddForm from "./AddForm";
+import userValidaton from "@/helperFunction/userValidation";
 
 const ProductsPage = () => {
+  const isGetUserLoading = userValidaton();
   const { productsData, isLoading: isGetAllLoading } = useGetProducts();
   const {
     addProductApi,
@@ -42,7 +44,9 @@ const ProductsPage = () => {
   const handleCancel = () => {
     setIsAdd(false);
   };
-  return (
+  return isGetUserLoading ? (
+    <span>Loading...</span>
+  ) : (
     <div style={{ width: "70vw" }} className="space-x-3">
       <ProductsHeader />
 

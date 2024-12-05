@@ -9,8 +9,10 @@ import {
 } from "@/apis/CategoriesApi";
 import AddForm from "./AddForm";
 import TableSkeleton from "@/components/TableSkeleton";
+import userValidaton from "@/helperFunction/userValidation";
 
 const CategoriesPage = () => {
+  const isGetUserLoading = userValidaton();
   const {
     categoriesData,
     isLoading: isGetLoading,
@@ -50,7 +52,9 @@ const CategoriesPage = () => {
     }
   };
 
-  return (
+  return isGetUserLoading ? (
+    <span>Loading...</span>
+  ) : (
     <div style={{ width: "70vw" }} className="space-x-3">
       <ProductsHeader />
       {isAddPage ? (
