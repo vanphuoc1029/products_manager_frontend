@@ -1,13 +1,18 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PackageIcon from "./icons/PackedIcon";
 import LogoIcon from "./icons/LogoIcon";
 import HomeIcon from "./icons/HomeIcon";
 import UsersIcon from "./icons/UsersIcon";
 import ShoppingCartIcon from "./icons/ShoppingCartIcon";
 import SettingsIcon from "./icons/SettingsIcon";
+import { LogOutIcon } from "lucide-react";
 
 const SideNavBar = () => {
   const location = useLocation();
+  const onLogOutClick = async () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
   const getLinkClass = (path: string) => {
     return location.pathname.startsWith(path)
@@ -44,6 +49,13 @@ const SideNavBar = () => {
           <SettingsIcon className="h-4 w-4" />
           Cài đặt
         </Link>
+        <div
+          onClick={onLogOutClick}
+          className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-50 cursor-pointer"
+        >
+          <LogOutIcon className="h-4 w-4" />
+          Đăng Xuất
+        </div>
       </nav>
     </>
   );

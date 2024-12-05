@@ -29,7 +29,6 @@ const LoginPage: React.FC = () => {
     return <span>Loading...</span>;
   }
 
-  console.log(currentUser);
   return (
     <div className="flex flex-col justify-center w-screen h-screen">
       <LoginCard onSave={loginApi} isError={isError} isLoading={isLoading} />
