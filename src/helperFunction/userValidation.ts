@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useGetMyUser } from "@/apis/LoginApi";
+import { useNavigate } from "react-router-dom";
 
 const UserValidation = () => {
   const { currentUser, isLoading } = useGetMyUser();
+  const navigate = useNavigate();
   useEffect(() => {
     if (!currentUser) {
-      window.location.href = "/login";
+      navigate("/login");
     }
   }, [currentUser]);
   return isLoading;
